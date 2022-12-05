@@ -32,7 +32,7 @@ int main() {
 
     if (infile.is_open()) {
         while (getline(infile, line) && (line[0] != '\0')) {
-            for (int i=1,j=0; i<line.length(); i+=4,j++) {
+            for (size_t i=1,j=0; i<line.length(); i+=4,j++) {
                 if (line[i] != ' ' && !(isdigit(line[i]))) {
                     vsc[j].push_front(line[i]);
                 }
