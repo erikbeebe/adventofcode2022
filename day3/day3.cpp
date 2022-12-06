@@ -66,11 +66,6 @@ int main() {
         set_intersection(tmp.begin(), tmp.end(),
                          c.begin(), c.end(),
                          std::inserter(intersect, intersect.begin()));
-        cout << "FOO1: ";
-        for (auto &x : tmp) {
-            cout << "tmp: " << x << endl;
-        }
-        cout << "FOO2: ";
         for (char x : intersect) {
             part2_prio += get_priority(x);
         }
