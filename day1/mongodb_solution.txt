@@ -1,0 +1,29 @@
+// Solve using mongo shell + aggregation pipeline
+use adventofcode;
+var f = cat('/home/erik/code/adventofcode2022/day1/day1.txt');
+// Array is segmented by empty values
+var chunks = f.split('\n')
+
+var chunk_counter = 0;
+for (let i=0; i<chunks.length; i++) { 
+    if (chunks[i] != "") {
+        db.day1.updateOne({chunk:chunk_counter}, {$push: {"elf_calories": parseInt(chunks[i])}});
+    } else {
+        chunk_counter++;
+        db.day1.insert({chunk:chunk_counter, "elf_calories": []});
+    }
+}
+
+let answer = db.day1.aggregate([
+ { "$unwind": "$elf_calories" },
+ { "$group": {
+      "_id": "$chunk",
+      "sum_of_calories": { "$sum": "$elf_calories" }
+   }
+ },
+ { "$sort": {
+      "sum_of_calories": -1
+   }
+ },
+ { "$limit": 1 }
+]);
