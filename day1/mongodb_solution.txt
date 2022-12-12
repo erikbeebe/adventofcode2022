@@ -27,3 +27,23 @@ let answer = db.day1.aggregate([
  },
  { "$limit": 1 }
 ]);
+
+// Part2 == add elf redundancy, top 3 elves with most supplies/calories
+db.day1.aggregate([
+ { "$unwind": "$elf_calories" },
+ { "$group": {
+      "_id": "$chunk",
+      "sum_of_calories": { "$sum": "$elf_calories" }
+   }
+ },
+ { "$sort": {
+      "sum_of_calories": -1
+   }
+ },
+ { "$limit": 3 },
+ { "$group": {
+      "_id": null,
+      "top3_calories": { "$sum": "$sum_of_calories" }
+   }
+ }
+]);
