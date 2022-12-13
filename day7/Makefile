@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -g -Wno-deprecated
  
-solve: solve.o utils.o
+solve: solve.o
 	$(CC) $(CFLAGS) -o solve solve.o
  
 clean:

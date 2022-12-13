@@ -17,8 +17,6 @@
 
 using namespace std;
 
-#include "utils.h"
-
 class Filesystem {
     enum dentry_type {
         directory,
